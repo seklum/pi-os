@@ -1,5 +1,6 @@
 #include <kernel/uart.h>
 #include <stdint.h>
+#include <string.h>
 
 void uart_init()
 {
@@ -42,45 +43,26 @@ void uart_init()
 	mmio_write(UART0_CR, (1 << 0) | (1 << 8) | (1 << 9));
 }
 
-static inline void mmio_write(uint32_t reg, uint32_t data)
-{
-	uint32_t* ptr = (uint32_t*) reg;
-	asm volatile("str %[data], [%[reg]]" :: [reg]"r"(ptr), [data]"r"(data));
-}
-
-static inline uint32_t mmio_read(uint32_t reg)
-{
-	uint32_t *ptr = (uint32_t*) reg;
-	uint32_t data;
-	asm volatile("ldr %[data], [%[reg]]" : [data]"=r"(data) : [reg]"r"(ptr));
-	return data;
-}
-
-static inline void delay(uint32_t count)
-{
-	asm volatile("__delay_%=:subs %[count], %[count], #1;bne __delay_%=\n"
-			:: [count]"r"(count) : "cc");
-}
 
 void uart_putc(unsigned char byte)
 {
-	while(mmio_read(UART_FR) & (1 << 5)){}
-	mmio_write(UART_DR, byte);
+	while(mmio_read(UART0_FR) & (1 << 5)){}
+	mmio_write(UART0_DR, byte);
 }
 
-void uart_puts(const unsigned char* str);
+void uart_puts(const unsigned char* str)
 {
 	uart_write((const unsigned char*) str, strlen(str));
 }
 
-unsigned char uart_getc();
+unsigned char uart_getc()
 {
-	while(mmio_read(UART_FR) & (1 << 4)){}
-	return mmio_read(UART_DR);
+	while(mmio_read(UART0_FR) & (1 << 4)){}
+	return mmio_read(UART0_DR);
 }
 
 void uart_write(const unsigned char* str, size_t size)
 {
-	for(size_t i = 0; str[i]; i++)
+	for(size_t i = 0; i < size; i++)
 		uart_putc(str[i]);
 }

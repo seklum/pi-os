@@ -3,6 +3,7 @@
 
 size_t strlen(const char* str)
 {
-	size_t iter;
-	for(iter = 0; str[iter]; ++iter;
+	size_t size;
+	for(size = 0; str[size]; size++);
+	return size;
 }

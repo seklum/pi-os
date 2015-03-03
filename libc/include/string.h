@@ -1,18 +1,12 @@
-#ifndef _STRING_H
-#define _STRING_H 1
-
-#include <sys/cdefs.h>
+#ifndef _STRING_H_
+#define _STRING_H_
 
 #include <stddef.h>
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
 #endif
 
 size_t strlen(const char*);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

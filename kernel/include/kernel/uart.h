@@ -5,6 +5,12 @@
 #include <stdint.h>
 #include <stdio.h>
 
+void uart_init();
+void uart_putc(unsigned char byte);
+void uart_puts(const unsigned char* str);
+unsigned char uart_getc();
+void uart_write(const unsigned char* str, size_t size);
+
 enum
 {
 	//GPIO registers base address.
@@ -42,13 +48,24 @@ enum
 	UART0_TDR    = (UART0_BASE + 0x8C),
 };
 
-void uart_init();
-static inline void mmio_write(uint32_t reg, uint32_t data);
-static inline uint32_t mmio_read(uint32_t reg);
-static inline void delay(uint32_t count);
-void uart_putc(unsigned char byte);
-void uart_puts(const unsigned char* str);
-unsigned char uart_getc();
-void uart_write(const unsigned char* str, size_t size);
+static inline void mmio_write(uint32_t reg, uint32_t data)
+{
+	uint32_t* ptr = (uint32_t*) reg;
+	asm volatile("str %[data], [%[reg]]" :: [reg]"r"(ptr), [data]"r"(data));
+}
+
+static inline uint32_t mmio_read(uint32_t reg)
+{
+	uint32_t *ptr = (uint32_t*) reg;
+	uint32_t data;
+	asm volatile("ldr %[data], [%[reg]]" : [data]"=r"(data) : [reg]"r"(ptr));
+	return data;
+}
+
+static inline void delay(uint32_t count)
+{
+	asm volatile("__delay_%=:subs %[count], %[count], #1;bne __delay_%=\n"
+			:: [count]"r"(count) : "cc");
+}
 
 #endif
