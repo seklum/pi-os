@@ -9,7 +9,7 @@ void uart_init();
 void uart_putc(unsigned char byte);
 void uart_puts(const unsigned char* str);
 unsigned char uart_getc();
-void uart_write(const unsigned char* str, size_t size);
+void uart_write(const unsigned char* str);
 
 enum
 {

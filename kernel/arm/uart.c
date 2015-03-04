@@ -1,6 +1,5 @@
 #include <kernel/uart.h>
 #include <stdint.h>
-#include <string.h>
 
 void uart_init()
 {
@@ -52,7 +51,7 @@ void uart_putc(unsigned char byte)
 
 void uart_puts(const unsigned char* str)
 {
-	uart_write((const unsigned char*) str, strlen(str));
+	uart_write((const unsigned char*) str);
 }
 
 unsigned char uart_getc()
@@ -61,8 +60,8 @@ unsigned char uart_getc()
 	return mmio_read(UART0_DR);
 }
 
-void uart_write(const unsigned char* str, size_t size)
+void uart_write(const unsigned char* str)
 {
-	for(size_t i = 0; i < size; i++)
+	for(size_t i = 0; str[i]; i++)
 		uart_putc(str[i]);
 }

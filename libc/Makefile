@@ -10,7 +10,7 @@ string/strlen.o \
 all : $(JOBS)
 
 libk.a : $(JOBS)
-	$(CC) $(CFLAGS) $(JOBS) -o libk.a
+	$(CC) $(JOBS) -o libk.a
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INC_DIR) $< -o $@

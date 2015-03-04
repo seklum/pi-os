@@ -6,8 +6,11 @@ INC_DIR = -I kernel/include -I libc/include
 
 all : myos.elf kernel libc
 
-kernel :
-	cd kernel; make
+KERN := \
+kernel/kernel.o \
+kernel/uart.o \
+
+kernel/kernel.img : 
 
 libc : 
 	cd libc; make
