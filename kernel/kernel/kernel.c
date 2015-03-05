@@ -15,8 +15,8 @@ void kernel_main(uint32_t r0, uint32_t r1, uint32_t atags)
 	(void) atags;
 
 	uart_init();
-	const unsigned char* hello = (unsigned char*) "Congratulations!\n The boot was succesfull!\r\n";
-	uart_puts(hello);
+	//const unsigned char* hello = (unsigned char*) ;
+	uart_puts("Congratulations!\n The boot was succesfull!\r\n");
 
 	while(true)
 		uart_putc(uart_getc());

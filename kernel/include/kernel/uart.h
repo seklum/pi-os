@@ -1,15 +1,13 @@
 #ifndef _KERNEL_UART_H
 #define _KERNEL_UART_H
 
-#include <stddef.h>
 #include <stdint.h>
-#include <stdio.h>
 
 void uart_init();
 void uart_putc(unsigned char byte);
-void uart_puts(const unsigned char* str);
+void uart_puts(const char* str);
 unsigned char uart_getc();
-void uart_write(const unsigned char* str);
+void uart_write(const unsigned char* str, size_t size);
 
 enum
 {

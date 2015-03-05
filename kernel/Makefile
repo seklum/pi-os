@@ -14,7 +14,7 @@ kernel.o : kernel/kernel.c
 	$(CC) $(CFLAGS) $(INC_DIR) -std=gnu99 kernel/kernel.c -o kernel.o -O2 -Wall -Wextra
 
 myos.elf : boot.o kernel.o uart.o
-	$(CC) $(INC_DIR) -T arm/linker.ld -o myos.elf -ffreestanding -O2 -nostdlib boot.o kernel.o uart.o
+	$(CC) $(INC_DIR) -T arm/linker.ld -o myos.elf -ffreestanding -O2 -nostdlib boot.o kernel.o uart.o ../libc/libk.a
 
 myos.bin : myos.elf
 	arm-none-eabi-objcopy myos.elf -O binary myos.bin

@@ -1,16 +1,34 @@
-CC = arm-none-eabi-gcc
-CFLAGS = -mcpu=arm1176jzf-s -fpic -ffreestanding -c -std=gnu99 -O2 -Wall -Wextra
-INC_DIR = -I include -I ../kernel/include
+CC := arm-none-eabi-gcc
+CFLAGS := -mcpu=arm1176jzf-s -fpic -c -std=gnu99 -O2 -Wall -Wextra
+LIBK_CFLAGS := $(CFLAGS) -ffreestanding
+INC_DIR := -I include/
 
-JOBS :=\
+FREEOBJS :=\
 string/strlen.o \
 
-.PHONY : all
+HOSTEDOBJS :=\
 
-all : $(JOBS)
+OBJS :=\
+	$(FREEOBJS) \
+	$(HOSTEDOBJS) \
 
-libk.a : $(JOBS)
-	$(CC) $(JOBS) -o libk.a
+LIBK_OBJS :=$(FREEOBJS:.o = .libk.o)
+
+.PHONY : all clean
+
+all : libk.a libc.a
+
+libc.a : $(OBJS)
+	$(AR) rcs $@ $(OBJS)
+
+libk.a : $(LIBK_OBJS)
+	$(AR) rcs $@ $(LIBK_OBJS)
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INC_DIR) $< -o $@
+
+%.libk.o : %.c
+	$(CC) $(LIBK_CFLAGS) $< -o $@
+
+clean :
+	rm $(OBJS) $(LIBK_OBJS)
