@@ -1,5 +1,4 @@
 #include <kernel/uart.h>
-#include <stdint.h>
 #include <string.h>
 
 void uart_init()

@@ -1,6 +1,7 @@
 #ifndef _KERNEL_UART_H
 #define _KERNEL_UART_H
 
+#include <stddef.h>
 #include <stdint.h>
 
 void uart_init();
