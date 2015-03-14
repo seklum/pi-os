@@ -12,7 +12,7 @@ OBJS :=\
 	$(FREEOBJS) \
 	$(HOSTEDOBJS) \
 
-LIBK_OBJS :=$(FREEOBJS:.o = .libk.o)
+LIBK_OBJS :=$(FREEOBJS:.o=.libk.o)
 
 .PHONY : all clean
 
@@ -28,7 +28,7 @@ libk.a : $(LIBK_OBJS)
 	$(CC) $(CFLAGS) $(INC_DIR) $< -o $@
 
 %.libk.o : %.c
-	$(CC) $(LIBK_CFLAGS) $< -o $@
+	$(CC) $(LIBK_CFLAGS) $(INC_DIR) $< -o $@
 
 clean :
-	rm $(OBJS) $(LIBK_OBJS)
+	rm $(OBJS) $(LIBK_OBJS) libk.a libc.a

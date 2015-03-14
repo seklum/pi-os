@@ -1,27 +1,9 @@
-CC = arm-none-eabi-gcc
-CFLAGS = -mcpu=arm1176jzf-s -fpic -ffreestanding -c
-INC_DIR = -I kernel/include -I libc/include
-
-.PHONY : all clean
-
-all : myos.elf kernel libc
-
-KERN := \
-kernel/kernel.o \
-kernel/uart.o \
-
-kernel/kernel.img : 
-
-libc : 
+.PHONY : all
+all :
 	cd libc; make
+	cd kernel; make
 
-myos.elf : kernel/boot.o kernel/kernel.o
-	$(CC) -T kernel/arm/linker.ld -o myos.elf -ffreestanding -O2 -nostdlib kernel/boot.o kernel/kernel.o
-
-myos.bin : myos.elf
-	arm-none-eabi-objcopy myos.elf -O binary myos.bin
-
+.PHONY : clean
 clean :
-	rm *.elf *.bin
-	cd kernel; make clean
 	cd libc; make clean
+	cd kernel; make clean
