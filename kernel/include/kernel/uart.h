@@ -61,7 +61,7 @@ static inline uint32_t mmio_read(uint32_t reg)
 	return data;
 }
 
-static inline void delay(uint32_t count)
+static inline void delay(int32_t count)
 {
 	asm volatile("__delay_%=:subs %[count], %[count], #1;bne __delay_%=\n"
 			:: [count]"r"(count) : "cc");
