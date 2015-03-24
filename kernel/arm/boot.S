@@ -9,7 +9,7 @@
 //r0 -> 0x00000000
 //r1 -> 0x00000C42
 //r2 -> 0x00000100 - start of ATAGS
-//preserve these regsiters as argument for kerlen_main
+//preserve these regsiters as argument for kernel_main
 _start:
 	//Setup the stack.
 	mov sp, #0x8000

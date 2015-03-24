@@ -66,7 +66,7 @@ arm_interrupt_handler:
 	stmfd sp!, {r0,r1,r2,r3,r4,r14}
 
 	//Invoke C irq handler
-	bl irg_handler
+	bl irq_handler
 
 	//Restore values
 	ldmfd sp!, {r0,r1,r2,r3,r4,pc}^
