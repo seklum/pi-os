@@ -1,5 +1,5 @@
-#ifndef _KERNEL_UART_H
-#define _KERNEL_UART_H
+#ifndef __KERNEL_UART_H_
+#define __KERNEL_UART_H_
 
 #include <stddef.h>
 #include <stdint.h>

@@ -1,5 +1,5 @@
-#ifndef IRQ_H_
-#define IRQ_H_
+#ifndef __IRQ_H_
+#define __IRQ_H_
 
 void irq_handler();
 bool irq_init();

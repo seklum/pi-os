@@ -1,5 +1,5 @@
-#ifndef _STDLIB_H
-#define _STDLIB_H 1
+#ifndef __STDLIB_H_
+#define __STDLIB_H_
 
 #include <sys/cdefs.h>
 
