@@ -16,11 +16,14 @@ irqhandler.o : arm/irq.c
 uart.o : arm/uart.c
 	$(CC) $(CFLAGS) $(INC_DIR) -std=gnu99 arm/uart.c -o uart.o -O2 -Wall -Wextra
 
+console.o : kernel/console.c
+	$(CC) $(CFLAGS) $(INC_DIR) -std=gnu99 kernel/console.c -o console.o -O2 -Wall -Wextra
+
 kernel.o : kernel/kernel.c
 	$(CC) $(CFLAGS) $(INC_DIR) -std=gnu99 kernel/kernel.c -o kernel.o -O2 -Wall -Wextra
 
-myos.elf : boot.o kernel.o uart.o irq.o irqhandler.o
-	$(CC) $(INC_DIR) -T arm/linker.ld -o myos.elf -ffreestanding -O2 -nostdlib boot.o kernel.o uart.o irq.o irqhandler.o ../libc/libk.a
+myos.elf : boot.o kernel.o uart.o irq.o irqhandler.o console.o
+	$(CC) $(INC_DIR) -T arm/linker.ld -o myos.elf -ffreestanding -O2 -nostdlib boot.o kernel.o console.o uart.o irq.o irqhandler.o ../libc/libk.a
 
 kernel.img : myos.elf
 	arm-none-eabi-objcopy myos.elf -O binary kernel.img

@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <kernel/uart.h>
 #include <kernel/irq.h>
+#include <kernel/console.h>
 
 #if defined(__cplusplus)
 extern "C"
@@ -22,6 +23,9 @@ void kernel_main(uint32_t r0, uint32_t r1, uint32_t atags)
 	irq_init();
 	irq_test();
 
+	char* string;
 	while(true)
-		uart_putc(uart_getc());
+	{
+		string = getInputString();
+	}
 }
