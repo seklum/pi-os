@@ -1,6 +1,6 @@
-CC = arm-none-eabi-gcc
-CFLAGS = -mcpu=arm1176jzf-s -fpic -ffreestanding -c
-INC_DIR = -I include -I ../libc/include
+CC := arm-none-eabi-gcc 
+CFLAGS := -mcpu=arm1176jzf-s -fpic -ffreestanding -c
+INC_DIR := -I include -I ../libc/include
 .PHONY : all
 all : kernel.img
 

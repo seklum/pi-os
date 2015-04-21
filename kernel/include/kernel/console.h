@@ -6,9 +6,9 @@
 
 #define MAX_CHARS_PER_ROW 120
 
-void printk(const unsigned char* str);
+void printk(const char* str);
 void newLine();
 void printChar(const unsigned char c);
-char* getInputString();
+unsigned char* getInputString();
 
 #endif
